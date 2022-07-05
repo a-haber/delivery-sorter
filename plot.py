@@ -26,16 +26,15 @@ def plot(coords_list, means_list):
         markeredgecolor = 'k', markerfacecolor=colours[means_list.index(item)])
     
     # plot coordinates, marking those which are deliverers differently
-    grouped_coords = group_by_means(coords_list, means_list)
-    for i in range(len(grouped_coords)):
-        for item in grouped_coords[i]:
-            if item in deliverer_coords:
-                plt.plot(item[0], item[1], marker='o', markersize=20,\
-                markeredgecolor='k', markerfacecolor=colours[i])
-            else:
-                plt.plot(item[0], item[1], marker='o', markersize=10,\
-                markeredgecolor='none', markerfacecolor=cluster_colours[i])
-    
+    for item in coords_list:
+        x = means_list.index(closest_mean(item, means_list))
+        if item in deliverer_coords:
+            plt.plot(item[0], item[1], marker='o', markersize=20,\
+            markeredgecolor='k', markerfacecolor=colours[x])
+        else:
+            x = means_list.index(closest_mean(item, means_list))
+            plt.plot(item[0], item[1], marker='o', markersize=10,\
+            markeredgecolor='none', markerfacecolor=cluster_colours[x])
     plt.grid()
     plt.axis('square')
     plt.show()
