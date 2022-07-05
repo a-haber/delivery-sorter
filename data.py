@@ -63,7 +63,7 @@ def split_address(address):
 
 def build_data_list():
     """Create a list of Deliverable objects from an excel spreadsheet of data"""
-    # read excel spreadsheet into pandas df dataframe
+    # read excel spreadsheet into pandas df dataframe - change address location as needed
     df = pd.read_excel (r'..\database.xlsx')
 
     # initialise list
