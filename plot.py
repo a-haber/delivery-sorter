@@ -27,8 +27,8 @@ def plot(coords_list, means_list):
     
     # plot coordinates, marking those which are deliverers differently
     for item in coords_list:
-        x = means_list.index(closest_mean(item, means_list))
         if item in deliverer_coords:
+            x = deliverer_coords.index(item)
             plt.plot(item[0], item[1], marker='o', markersize=20,\
             markeredgecolor='k', markerfacecolor=colours[x])
         else:
@@ -39,7 +39,7 @@ def plot(coords_list, means_list):
     plt.axis('square')
     plt.show()
 
-def iterate(n, start_means):
+def iterate(n, start_means, showplot=False):
     """Iterate  to a depth of n, plotting each time
     Break the loop if there is no change in groupings"""
     grouped = group_by_means(coords, start_means)
@@ -50,16 +50,45 @@ def iterate(n, start_means):
         new_means = []
         for i in range(k):
             new_means.append(centroid(grouped[i]))
-        plot(coords, new_means)
-        plt.show()
+        
+        if showplot:
+            plot(coords, new_means)
+            plt.show()
+        
         if grouped == group_by_means(coords, new_means): # previous grouping same as next grouping
             print("Iteration finished converging, no new changes")
             return grouped
         else:
-            iterate(n-1, new_means)
+            return iterate(n-1, new_means, showplot=showplot)
 
+
+def create_groups():
+    """Use iterative process to sort all items into groups"""
+    result = iterate(20, means)
+    # create groups
+    groups = [[] for i in range(k)] # k is number of deliverers=number of groups
+    for point in datalist:
+        for i in range(k):
+            if point.coordinates in result[i]:
+                groups[i].append(point)
+                break
+
+    # if deliverer has changed group, move them back to their original group
+    for subgroup in groups:
+        for item in subgroup:
+            if item.deliverer:
+                x = deliverer_coords.index(item.coordinates) # 'original' group
+                y = groups.index(subgroup) # group after iterating
+                if x != y:
+                    subgroup.remove(item) # remove from 'wrong' group
+                    groups[x].append(item) # add back to original group
+    return groups
+    
 def run():
+    print("Plotting original scheme...")
     plot(coords, means)
-    iterate(20, means)
-
-run()
+    print("Iterating...")
+    iterate(20, means, showplot=True) # set showplot=True to show plotting at each step
+    
+if __name__ == "__main__":
+    run()
