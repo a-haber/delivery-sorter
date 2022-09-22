@@ -20,13 +20,14 @@ dflist = {}
 for a in range(k):
     testlist = [[] for i in range(len(groups[a]))]
     for b in range(len(groups[a])):
-        dummy = groups[a][b]
-        testlist[b].append(dummy.id)
+        person = groups[a][b]
+        testlist[b].append(person.id)
         testlist[b].append(a+1)
-        testlist[b].append(dummy.street)
-        testlist[b].append(dummy.postcode)
-        testlist[b].append(dummy.status)
-    df = pd.DataFrame(testlist, index=[i+1 for i in range(len(groups[a]))], columns=['ID', 'Group', 'Street', 'Postcode', 'Deliverer?'])
+        testlist[b].append(person.street)
+        testlist[b].append(person.house_no)
+        testlist[b].append(person.postcode)
+        testlist[b].append(person.status)
+    df = pd.DataFrame(testlist, index=[i+1 for i in range(len(groups[a]))], columns=['ID', 'Group', 'Street', 'House No', 'Postcode', 'Deliverer?'])
     dflist[a] = df
     print(df)
     print("\n")
