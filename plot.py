@@ -2,7 +2,7 @@ from data import *
 from distance import *
 import matplotlib.pyplot as plt
 
-# get (lon,lat) coords of addresses in database.xlsx
+# get (lon,lat) coords of addresses in database xlsx
 # sourced from google sheets extension Geocode by Awesome Table
 datalist = build_data_list()
 coords = [item.coordinates for item in datalist]
@@ -14,8 +14,13 @@ means = deliverer_coords
 def plot(coords_list, means_list):
     """Plot all coordinates in coloured groups, with corresponding means also plotted"""
     # colours for each group
-    colours = ['c','m','y','g','r','slategrey','orangered'] 
-    cluster_colours = ['b','pink','yellow','darkgreen','firebrick','silver','coral']
+    colours = ['c','m','y','g','r','slategrey','orangered', 'lavender'] 
+    cluster_colours = ['b','pink','yellow','darkgreen','firebrick','silver','coral', 'lightsteelblue']
+    
+    # make sure list of colours is as long as the number of groups there are
+    x = int(k / len(colours)) + 1
+    colours *= x
+    cluster_colours *= x
     
     # set up pyplot figure
     plt.figure()
@@ -64,7 +69,7 @@ def iterate(n, start_means, showplot=False):
 
 def create_groups():
     """Use iterative process to sort all items into groups"""
-    result = iterate(20, means)
+    result = iterate(25, means)
     # create groups
     groups = [[] for i in range(k)] # k is number of deliverers=number of groups
     for point in datalist:
@@ -88,7 +93,7 @@ def run():
     print("Plotting original scheme...")
     plot(coords, means)
     print("Iterating...")
-    iterate(20, means, showplot=True) # set showplot=True to show plotting at each step
+    iterate(25, means, showplot=True) # set showplot=True to show plotting at each step
     
 if __name__ == "__main__":
     run()
