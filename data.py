@@ -1,4 +1,5 @@
 import pandas as pd
+import os
 
 class Deliverable:
     """This class represents an address to deliver to"""
@@ -60,11 +61,26 @@ def split_address(address):
     
     return house_no, st, town, postcode
 
+def navigate_directory():
+    # navigate to examplefiles folder in order to access the files
+    # should change this location if files (eg database) are stored in a parent folder
+    # only stored in a child folder here for easy access as an example
+    path = os.path.dirname(os.path.realpath(__file__))
+    path += "\\examplefiles"
+    try:
+        os.chdir(path)
+    except PermissionError:
+        print("You do not have permission to change file location")
+    except FileNotFoundError:
+        print("Directory: {} does not exist".format(path))
+    except NotADirectoryError:
+        print("{0} is not a directory".format(path))
 
 def build_data_list():
     """Create a list of Deliverable objects from an excel spreadsheet of data"""
     # read excel spreadsheet into pandas df dataframe - change address location as needed
-    df = pd.read_excel (r'..\database.xlsx')
+    navigate_directory()
+    df = pd.read_excel (r'.\exampledatabase.xlsx')
 
     # initialise list
     items = []
