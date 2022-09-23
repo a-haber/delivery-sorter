@@ -10,9 +10,6 @@ def run():
         index=['Group Size', 'Deliverer ID'], columns=['Group '+str(i+1) for i in range(k)])
     print(df)
 
-    for i in range(k):
-        print(len(groups[i]))
-
     print("\nPress Enter to continue and print a summary of up to 5 groups,\n \
     or type 'all' to print a summary for all groups: \n")
     printsummary = input()

@@ -27,18 +27,18 @@ def plot(coords_list, means_list):
 
     # plot means
     for item in means_list:
-        plt.plot(item[0], item[1], marker = 'o', markersize=5,\
+        plt.plot(item[1], item[0], marker = 'o', markersize=5,\
         markeredgecolor = 'k', markerfacecolor=colours[means_list.index(item)])
     
     # plot coordinates, marking those which are deliverers differently
     for item in coords_list:
         if item in deliverer_coords:
             x = deliverer_coords.index(item)
-            plt.plot(item[0], item[1], marker='o', markersize=20,\
+            plt.plot(item[1], item[0], marker='o', markersize=20,\
             markeredgecolor='k', markerfacecolor=colours[x])
         else:
             x = means_list.index(closest_mean(item, means_list))
-            plt.plot(item[0], item[1], marker='o', markersize=10,\
+            plt.plot(item[1], item[0], marker='o', markersize=10,\
             markeredgecolor='none', markerfacecolor=cluster_colours[x])
     plt.grid()
     plt.axis('square')
