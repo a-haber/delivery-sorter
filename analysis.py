@@ -40,7 +40,7 @@ def run():
         with pd.ExcelWriter('../delivery_groups_sorted.xlsx') as writer:
             for i in range(k):
                 dflist[i].to_excel(writer, sheet_name='Group '+str(i+1))
-        print("Spreadsheet saved as 'delivery_groups_sorted.xlsx'")
+        print("Spreadsheet saved as 'delivery_groups_sorted.xlsx' in parent folder")
 
 if __name__ == '__main__':
     run()
