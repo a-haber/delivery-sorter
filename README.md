@@ -17,6 +17,7 @@ __showresults.py:__ plots a scatter of all points then final results, colour coo
 When run on a database containing 962 random* London addresses, the inital scatter of points is output as follows:
 
 \**(a similar number of random adresses were selected from each London postcode, giving a spread of locations across the city)*
+
 ![scatter](https://user-images.githubusercontent.com/98184411/194065463-6bd4f787-5cf9-44a3-8e20-7c58727735c3.png)
 
 Points were then sorted, and grouped as below:
